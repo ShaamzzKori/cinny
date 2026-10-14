@@ -19,27 +19,17 @@ export type Theme = {
 export const LightTheme: Theme = {
   id: 'light-theme',
   kind: ThemeKind.Light,
-  classNames: [lightTheme, onLightFontWeight, 'prism-light'],
+  classNames: [silverTheme, onLightFontWeight, 'prism-light'],
 };
 
-export const SilverTheme: Theme = {
-  id: 'silver-theme',
-  kind: ThemeKind.Light,
-  classNames: ['silver-theme', silverTheme, onLightFontWeight, 'prism-light'],
-};
 export const DarkTheme: Theme = {
   id: 'dark-theme',
   kind: ThemeKind.Dark,
   classNames: ['dark-theme', darkTheme, onDarkFontWeight, 'prism-dark'],
 };
-export const ButterTheme: Theme = {
-  id: 'butter-theme',
-  kind: ThemeKind.Dark,
-  classNames: ['butter-theme', butterTheme, onDarkFontWeight, 'prism-dark'],
-};
 
 export const useThemes = (): Theme[] => {
-  const themes: Theme[] = useMemo(() => [LightTheme, SilverTheme, DarkTheme, ButterTheme], []);
+  const themes: Theme[] = useMemo(() => [LightTheme, DarkTheme], []);
 
   return themes;
 };
@@ -48,9 +38,7 @@ export const useThemeNames = (): Record<string, string> =>
   useMemo(
     () => ({
       [LightTheme.id]: 'Light',
-      [SilverTheme.id]: 'Silver',
       [DarkTheme.id]: 'Dark',
-      [ButterTheme.id]: 'Butter',
     }),
     []
   );
@@ -66,6 +54,10 @@ export const useSystemThemeKind = (): ThemeKind => {
       setThemeKind(darkModeQueryList.matches ? ThemeKind.Dark : ThemeKind.Light);
     };
 
+    darkModeQueryHange = (e: MediaQueryListEvent) => {
+      setThemeKind(e.matches ? ThemeKind.Dark : ThemeKind.Light);
+    };
+    
     darkModeQueryList.addEventListener('change', handleMediaQueryChange);
     return () => {
       darkModeQueryList.removeEventListener('change', handleMediaQueryChange);
