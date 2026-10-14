@@ -86,9 +86,5 @@ function UnverifiedIndicator() {
 }
 
 export function UnverifiedTab() {
-  const crossSigningActive = useCrossSigningActive();
-
-  if (!crossSigningActive) return null;
-
-  return <UnverifiedIndicator />;
+  return null;
 }
